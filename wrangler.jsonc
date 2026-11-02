@@ -5,7 +5,7 @@
   "compatibility_date": "2026-10-30",
   "compatibility_flags": ["nodejs_compat"],
   "assets": { "directory": "./dist/client", "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": ["/api/*"] },
-  "d1_databases": [{ "binding": "DB", "database_name": "course-notes", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "cloudflare/migrations" }],
+  "d1_databases": [{ "binding": "DB", "database_name": "course-notes", "database_id": "course-notes", "migrations_dir": "cloudflare/migrations" }],
   "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "course-notes-uploads" }],
   "durable_objects": { "bindings": [
     { "name": "QUEUE", "class_name": "NoteCoordinator" },
