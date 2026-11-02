@@ -1,0 +1,13 @@
+node_modules
+.git
+.env
+.env.*
+.dev.vars*
+.wrangler
+data
+dist
+.tmp-build
+tests/.downloads
+cloudflare/private
+*.db*
+*.log

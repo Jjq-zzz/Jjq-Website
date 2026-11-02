@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "course-notes",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2026-10-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "./dist/client", "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": ["/api/*"] },
+  "d1_databases": [{ "binding": "DB", "database_name": "course-notes", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "cloudflare/migrations" }],
+  "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "course-notes-uploads" }],
+  "durable_objects": { "bindings": [
+    { "name": "QUEUE", "class_name": "NoteCoordinator" },
+    { "name": "PARSER", "class_name": "ParserContainer" }
+  ] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["NoteCoordinator", "ParserContainer"] }],
+  "containers": [{ "class_name": "ParserContainer", "image": "./cloudflare/parser/Dockerfile", "image_build_context": ".", "instance_type": "standard-1", "max_instances": 2 }],
+  "vars": { "AI_BASE_URL": "https://api.deepseek.com/v1", "AI_MODEL": "deepseek-chat", "AI_MAX_TOKENS": "8192", "AI_CHUNK_CHARS": "4000" },
+  "limits": { "cpu_ms": 300000 },
+  "observability": { "enabled": true },
+  "triggers": { "crons": ["*/5 * * * *"] }
+}
